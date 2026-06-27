@@ -1,54 +1,76 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/client';
+import Navbar from '../components/Navbar';
+import client from '../api/client';
 
 export default function TicketCreate() {
-  const [subject, setSubject] = useState('');
-  const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState('medium');
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    subject: '',
+    description: '',
+    priority: 'medium',
+  });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setLoading(true);
+
     try {
-      const res = await api.post('/tickets', { subject, description, priority });
-      navigate(`/tickets/${res.data.id}`);
+      const { data } = await client.post('/tickets', formData);
+      navigate(`/tickets/${data.id || data.ticket?.id}`);
     } catch (err) {
-      console.error(err);
+      setError(err.response?.data?.message || 'Failed to create ticket.');
+      setLoading(false);
     }
   };
 
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-8 flex justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-sm w-full max-w-2xl border-t-4 border-blue-600">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">Create New Ticket</h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+      <div className="flex-1 max-w-2xl w-full mx-auto px-6 py-8">
+        <h1 className="text-2xl font-semibold text-gray-900 mb-6">Create Ticket</h1>
+        
+        <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded shadow-sm p-6">
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
             <input 
               required
-              className="w-full border p-3 rounded bg-gray-50 outline-blue-500" 
-              value={subject} 
-              onChange={e => setSubject(e.target.value)}
-              placeholder="Briefly describe your issue..." 
+              type="text" 
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              placeholder="Brief summary of the issue"
             />
           </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+          
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea 
               required
-              className="w-full border p-3 rounded bg-gray-50 min-h-[150px] outline-blue-500" 
-              value={description} 
-              onChange={e => setDescription(e.target.value)}
-              placeholder="Provide more details..." 
+              rows={5}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              placeholder="Detailed description of the issue"
             />
           </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Priority</label>
+          
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
             <select 
-              className="w-full border p-3 rounded bg-gray-50 outline-blue-500" 
-              value={priority} 
-              onChange={e => setPriority(e.target.value)}
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -56,10 +78,16 @@ export default function TicketCreate() {
               <option value="urgent">Urgent</option>
             </select>
           </div>
-          <div className="flex justify-end gap-3 pt-4">
-            <button type="button" onClick={() => navigate('/tickets')} className="px-6 py-2 border rounded font-semibold text-gray-600 hover:bg-gray-100">Cancel</button>
-            <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 shadow-sm transition">Create Ticket</button>
-          </div>
+          
+          {error && <div className="text-red-600 text-sm mb-4">{error}</div>}
+          
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded hover:bg-blue-700 transition-colors disabled:opacity-50"
+          >
+            {loading ? 'Submitting...' : 'Submit Ticket'}
+          </button>
         </form>
       </div>
     </div>
