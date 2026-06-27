@@ -1,0 +1,15 @@
+[
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782564978,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782544660,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782377969,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782369306,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782327790,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782323000,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782321856,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782321009,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782320914,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782320881,"change_type":"expanded","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782320669,"change_type":"added","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"},
+{"user_id":"U0BCX9PDFMY","user_name":"yashaswigoel21","date":1782320668,"change_type":"added","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF","scope":"identify,channels:history,im:history,channels:read,users:read,chat:write"},
+{"user_id":0,"user_name":"slack","date":1782320276,"change_type":"app_collaborator_added","app_type":"FORGE_BOT","app_id":"A0BCFSM4HGF"}
+]
