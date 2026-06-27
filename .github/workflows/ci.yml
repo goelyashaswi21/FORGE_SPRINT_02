@@ -10,23 +10,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: pulsedesk_test
-        ports:
-          - 3306:3306
-        options: --health-cmd='mysqladmin ping' --health-interval=10s --health-retries=5
-
     steps:
       - uses: actions/checkout@v4
 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: pdo_mysql
+          extensions: pdo_sqlite
 
       - name: Install dependencies
         run: cd backend && composer install --no-interaction --prefer-dist
@@ -35,11 +25,9 @@ jobs:
         run: |
           cd backend
           cp .env.example .env
-          echo 'DB_CONNECTION=mysql' >> .env
-          echo 'DB_HOST=127.0.0.1' >> .env
-          echo 'DB_DATABASE=pulsedesk_test' >> .env
-          echo 'DB_USERNAME=root' >> .env
-          echo 'DB_PASSWORD=password' >> .env
+          echo 'DB_CONNECTION=sqlite' >> .env
+          echo 'DB_DATABASE=/tmp/pulsedesk_test.sqlite' >> .env
+          touch /tmp/pulsedesk_test.sqlite
           php artisan key:generate
 
       - name: Run migrations
